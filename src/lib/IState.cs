@@ -1,4 +1,4 @@
-namespace FsmXt
+namespace heitech.FsmXt
 {
     ///<summary>
     /// IState<T> interface to set the currentState and invoke further changes if necessary.

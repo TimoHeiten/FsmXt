@@ -1,4 +1,4 @@
-namespace FsmXt
+namespace heitech.FsmXt
 {
     ///<summary>
     /// Message that indicates a State transformation. The actual transformation is done by the state itself.

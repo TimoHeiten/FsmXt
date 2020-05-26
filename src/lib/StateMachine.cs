@@ -2,19 +2,24 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace FsmXt
+namespace heitech.FsmXt
 {
     public class StateMachine
     {
         private readonly Dictionary<string, IState> _transactions;
+        private readonly Action _defaultError;
         ///<summary>
-        /// 
+        /// Pass all registers you need. Must not be empty or null
         ///</summary>
-        public StateMachine(IEnumerable<StateRegister> stateRegisters)
+        public StateMachine(IEnumerable<StateRegister> stateRegisters, Action defaultError)
         {
-            if (stateRegisters.Any() == false || stateRegisters == null)
+            if (stateRegisters == null || stateRegisters.Any() == false)
                 throw new ArgumentException("Empty or null registers not allowed!");
 
+            if (defaultError == null)
+                throw new ArgumentException("Default error must not be null!");
+
+            _defaultError = defaultError;
             _transactions = stateRegisters.ToDictionary(x => x.Key, y => y.State);
         }
 
@@ -43,8 +48,7 @@ namespace FsmXt
             // no state found
             else
             {
-                string _msg = $"Did not find a State for Type: [{type}] && Message: [{msg}]";
-                var error = onError ?? new Action(() => System.Console.WriteLine(_msg));
+                var error = onError ?? _defaultError;
                 error.Invoke();
             }
         }
@@ -53,7 +57,7 @@ namespace FsmXt
         {
             var types = state.GetType().GenericTypeArguments;
 
-            return typeof(T) == types.First();
+            return typeof(T) == types.FirstOrDefault();
         }
     }
 }
