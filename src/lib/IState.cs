@@ -8,6 +8,9 @@ namespace heitech.FsmXt
         void SetCurrentState(T value);
     }
 
+    ///<summary>
+    /// Only a marker interface just for internal use
+    ///</summary>
     public interface IState
     {
         ///<summary>
