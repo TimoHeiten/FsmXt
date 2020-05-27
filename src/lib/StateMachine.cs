@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace heitech.FsmXt
 {
-    public class StateMachine
+    public class StateMachine : IStateMachine
     {
         private readonly Dictionary<string, IState> _transactions;
         private readonly Action _defaultError;
@@ -37,7 +37,7 @@ namespace heitech.FsmXt
                 if (hasEvent && genericsMatch)
                 {
                     var stateOfT = state as IState<T>;
-                    stateOfT.SetCurrentState(msg.StateValue);
+                    stateOfT.SetCurrentState(msg.NextState);
                 }
                 else
                 {
@@ -55,7 +55,16 @@ namespace heitech.FsmXt
 
         private bool IsSameGenericType<T>(IState state)
         {
-            var types = state.GetType().GenericTypeArguments;
+            var firstOfStateOf_T_ = state.GetType()
+                                         .GetInterfaces()
+                                         .FirstOrDefault(x => x == typeof(IState<T>));
+
+            if (firstOfStateOf_T_ == null)
+            {
+                return false;
+            }
+
+            var types = firstOfStateOf_T_.GenericTypeArguments;
 
             return typeof(T) == types.FirstOrDefault();
         }

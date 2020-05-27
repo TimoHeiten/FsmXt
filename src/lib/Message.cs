@@ -8,7 +8,7 @@ namespace heitech.FsmXt
         ///<summary>
         /// The Value to set for the current state in the Representing state.
         ///</summary>
-        public T StateValue { get; set; }
+        public T NextState { get; set; }
         ///<summary>
         /// The Eventname that transforms the state
         ///</summary>

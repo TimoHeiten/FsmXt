@@ -23,7 +23,7 @@ namespace heitech.FsmXt.Tests
 
         public static Message<string> CreateMessage()
         {
-            return new Message<string>{ EventName = "event-1", StateValue = "abcaffeschnee" };
+            return new Message<string>{ EventName = "event-1", NextState = "abcaffeschnee" };
         }
     }
 }

@@ -1,9 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  <ItemGroup>
+    <ProjectReference Include="..\lib\lib.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0"/>
+  </ItemGroup>
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>example_console</RootNamespace>
   </PropertyGroup>
-
 </Project>
